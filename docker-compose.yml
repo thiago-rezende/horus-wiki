@@ -12,14 +12,20 @@ services:
       - horus-net
 
   proxy:
-    image: nginx:alpine
+    build:
+      context: ./proxy
+      dockerfile: Dockerfile
+    environment:
+      DOMAIN: ${DOMAIN}
     ports:
       - 80:80
       - 443:443
     networks:
       - horus-net
     volumes:
-      - "./proxy/config/nginx.conf:/etc/nginx/nginx.conf:ro"
+      - "./proxy/config/nginx.conf.template:/usr/src/app/nginx.conf.template:ro"
+      - "./proxy/config/nginx.conf:/etc/nginx/nginx.conf"
+      - "./proxy/docker-entrypoint.sh:/docker-entrypoint.sh:ro"
 
 networks:
   horus-net:
