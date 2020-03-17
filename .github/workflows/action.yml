@@ -7,5 +7,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Build all the Docker images
-        run: docker-compose build --compress --parallel
+      - name: Build the Proxy Docker image
+        run: docker build ./proxy/.
